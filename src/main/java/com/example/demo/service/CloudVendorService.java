@@ -6,10 +6,9 @@ import java.util.List;
 
 public interface CloudVendorService {
 
-    public String CreatCloudVendor(CloudVendor cloudVendor);
-    public String UpdateCloudVendor(CloudVendor cloudVendor);
-    public String DeleteCloudVendor(String cloudVendorId);
-    public CloudVendor getCloudVendor(String cloudVendorId);
-    public List<CloudVendor> getAllCloudVendors();
+    String CreatCloudVendor(CloudVendor cloudVendor);
+    String DeleteCloudVendor(String cloudVendorId);
+    CloudVendor getCloudVendor(String cloudVendorId);
+    List<CloudVendor> getAllCloudVendors();
 
 }

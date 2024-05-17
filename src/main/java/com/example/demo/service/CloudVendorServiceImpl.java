@@ -5,9 +5,6 @@ import com.example.demo.repository.CloudVendorRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-
-
-
 @Service
 public class CloudVendorServiceImpl implements CloudVendorService {
 
@@ -24,12 +21,6 @@ public class CloudVendorServiceImpl implements CloudVendorService {
     }
 
     @Override
-    public String UpdateCloudVendor(CloudVendor cloudVendor) {
-        cloudVendorRepository.save(cloudVendor);
-        return "Updated Success";
-    }
-
-    @Override
     public String DeleteCloudVendor(String cloudVendorId) {
         cloudVendorRepository.deleteById(cloudVendorId);
         return "Deleted Success";
@@ -37,8 +28,11 @@ public class CloudVendorServiceImpl implements CloudVendorService {
 
     @Override
     public CloudVendor getCloudVendor(String cloudVendorId) {
-
-        return cloudVendorRepository.findById(cloudVendorId).get();
+        if (cloudVendorRepository.findById(cloudVendorId).isEmpty()){
+            return null;
+        }else {
+            return cloudVendorRepository.findById(cloudVendorId).get();
+        }
     }
 
     @Override
