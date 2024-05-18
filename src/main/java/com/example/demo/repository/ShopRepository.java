@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ShopRepository {
 
-    Long Insert(ShopInfo info);
+    void Insert(ShopInfo info);
 
     List<ShopInfo> findAll();
+    ShopInfo findByName(String Name);
 }
