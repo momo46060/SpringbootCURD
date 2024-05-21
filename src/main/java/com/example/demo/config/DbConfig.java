@@ -1,23 +1,26 @@
 package com.example.demo.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
 
 @Configuration
 public class DbConfig {
-
+    @Autowired
+    private Environment env;
     @Bean
     public DataSource sybasedataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
 //        dataSourceBuilder.driverClassName("sybase.jdbc4.jdbc.SybaseDriver"); // Replace if needed based on your driver
-        dataSourceBuilder.driverClassName("com.sybase.jdbc4.jdbc.SybDriver"); // Replace if needed based on your driver
-        dataSourceBuilder.url("jdbc:sybase:Tds:172.16.0.230:5000/mobile");
-        dataSourceBuilder.username("sa");
-        dataSourceBuilder.password("semmaa");
+        dataSourceBuilder.driverClassName(env.getProperty("spring.datasource.driverClassName")); // Replace if needed based on your driver
+        dataSourceBuilder.url(env.getProperty("spring.datasource.url"));
+        dataSourceBuilder.username(env.getProperty("spring.datasource.username"));
+        dataSourceBuilder.password(env.getProperty("spring.datasource.password"));
         return dataSourceBuilder.build();
     }
 
