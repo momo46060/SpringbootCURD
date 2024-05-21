@@ -12,12 +12,14 @@ public class ShopRepositoryImpl implements ShopRepository {
 
 
     @Autowired
-    private JdbcTemplate template;
+    private JdbcTemplate mysqlJdbcTemplate;
 
+    @Autowired
+    private JdbcTemplate sybaseJdbcTemplate;
     @Override
     public void Insert(ShopInfo info) {
         try {
-            template.execute(
+            mysqlJdbcTemplate.execute(
                     "insert into shop_info( name, address, phone) values ( '" + info.getName() + "', '" + info.getAddress() + "', '" + info.getPhone() + "');"
             );
         } catch (Exception e) {
@@ -27,9 +29,14 @@ public class ShopRepositoryImpl implements ShopRepository {
 
     }
 
+    public String finddb(){
+        return sybaseJdbcTemplate.queryForObject("select autocode from  erp_users where alpha_code = 413400", String.class);
+    }
+
     @Override
     public List<ShopInfo> findAll() {
-        return template.query("select *from shop_info;", (rs, rowNum) -> {
+        System.out.println(finddb());
+        return mysqlJdbcTemplate.query("select *from shop_info;", (rs, rowNum) -> {
             ShopInfo item = new ShopInfo();
             item.setId(rs.getInt("id"));
             item.setName(rs.getString("name"));
@@ -41,7 +48,7 @@ public class ShopRepositoryImpl implements ShopRepository {
 
     @Override
     public ShopInfo findByName(String name) {
-        return template.queryForObject("select * from shop_info where name = '"+name+" ';", (rs, rowNum) -> {
+        return mysqlJdbcTemplate.queryForObject("select * from shop_info where name = '"+name+" ';", (rs, rowNum) -> {
             ShopInfo item = new ShopInfo();
             item.setId(rs.getInt("id"));
             item.setName(rs.getString("name"));
