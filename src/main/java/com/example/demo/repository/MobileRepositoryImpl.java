@@ -3,11 +3,7 @@ package com.example.demo.repository;
 import com.example.demo.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -27,7 +23,14 @@ public class MobileRepositoryImpl implements MobileRepository {
                         "and branch.branch_code=erp_users.autocode";
         return sybaseJdbcTemplate.query(sql, (rs, rowNum) -> {
             UserInfo userInfo = new UserInfo();
-            userInfo.setUserName(rs.getString("user_name"));
+            if (rs.getString("user_name").length()>2){
+                System.out.println(rs.getString("user_name").length()<2);
+                System.out.println(rs.getString("user_name").length());
+                System.out.println(rs.getString("emp_name"));
+                userInfo.setUserName(rs.getString("user_name"));
+            }else {
+                userInfo.setUserName(rs.getString("emp_name"));
+            }
             userInfo.setNameAr(rs.getString("name_ar"));
             userInfo.setNameEn(rs.getString("name_eng"));
             userInfo.setAutocode(rs.getShort("autocode"));
