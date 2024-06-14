@@ -17,8 +17,8 @@ public class SedecController {
     @Autowired
     SedecService sedecService;
 
-    @GetMapping("/getusers/{role}")
-    public Map<String,Object> getUsersbyrole(@PathVariable int role){
+    @PostMapping("/getusers")
+    public Map<String,Object> getUsersbyrole(@RequestBody Integer role){
        return  sedecService.getUsersByRole(role);
     }
 

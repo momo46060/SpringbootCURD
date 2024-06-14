@@ -24,9 +24,6 @@ public class MobileRepositoryImpl implements MobileRepository {
         return sybaseJdbcTemplate.query(sql, (rs, rowNum) -> {
             UserInfo userInfo = new UserInfo();
             if (rs.getString("user_name").length()>2){
-                System.out.println(rs.getString("user_name").length()<2);
-                System.out.println(rs.getString("user_name").length());
-                System.out.println(rs.getString("emp_name"));
                 userInfo.setUserName(rs.getString("user_name"));
             }else {
                 userInfo.setUserName(rs.getString("emp_name"));
