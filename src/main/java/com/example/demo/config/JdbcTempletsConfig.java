@@ -16,6 +16,7 @@ public class JdbcTempletsConfig {
         return new JdbcTemplate(sybasedataSource);
     }
 
+
     @Bean
     public JdbcTemplate mysqlJdbcTemplate(DataSource mysqldataSource) {
         return new JdbcTemplate(mysqldataSource);
