@@ -15,6 +15,7 @@ public class MobileRepositoryImpl implements MobileRepository {
     @Override
     public List<UserInfo> getAllUsers(int role) {
         String sql =
+
                 "select autocode,convert(univarchar(100),Encode.arEncoding(user_name)) as user_name, " +
                         "convert(univarchar(100),Encode.arEncoding(emp_name)) as emp_name , " +
                         "alpha_code,companyId,email,mobile,roleid,roledesc,erp_users.uid,name_ar, name_eng from fk_userrole,\n" +
